@@ -1,0 +1,29 @@
+apply plugin: 'groovy' // Groovy plugin 
+apply plugin: 'java'
+
+group 'example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.5'
+    compile 'com.amazonaws:aws-lambda-java-core:1.0.0'
+    compile 'com.amazon.alexa:alexa-skills-kit:1.1.1'
+    compile 'org.slf4j:slf4j-api:1.7.10'
+
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+
+}
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtime
+    }
+}
+
+build.dependsOn buildZip
