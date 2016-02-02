@@ -14,6 +14,6 @@ class GetTemperatureSpeechletHandlerSpec extends Specification {
 
     def "handler should have proper application id"() {
         expect:
-        handler.supportedApplicationIds.contains('amzn1.echo-sdk-ams.app.[unique-value-here]')
+        handler.supportedApplicationIds.contains('amzn1.echo-sdk-ams.app.3328806a-3db4-4639-b032-e9e75fd5ed2d')
     }
 }
