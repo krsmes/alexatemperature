@@ -14,3 +14,5 @@ hs_err_pid*
 *.iws
 /out/
 
+# only exclude the root directory private.properties, not the template/test one in src/main/resources
+/private.properties

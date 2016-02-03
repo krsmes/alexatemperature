@@ -11,12 +11,9 @@ class GetTemperatureSpeechletSpec extends Specification {
     def request = null
     def session = null
 
-    def intentRequest = { String name ->
-        IntentRequest.builder().withRequestId('requestid').withIntent(
-            Intent.builder().withName(name).build()
-        ).build()
+    def setup() {
+        subject.particle = [getTemperature: {-> new Random().nextInt(100)}] as GetTemperatureParticle
     }
-
 
     def "onLaunch should return greeting"() {
         given:
@@ -52,4 +49,18 @@ class GetTemperatureSpeechletSpec extends Specification {
         response.outputSpeech.text ==~ expectedResponseSpeech
     }
 
+    def "getTemperature should return temperature from particle"() {
+        given:
+        subject.particle = [getTemperature: {-> 99}] as GetTemperatureParticle
+        when:
+        def result = subject.getTemperature()
+        then:
+        result == 99;
+    }
+
+    def intentRequest = { String name ->
+        IntentRequest.builder().withRequestId('requestid').withIntent(
+            Intent.builder().withName(name).build()
+        ).build()
+    }
 }

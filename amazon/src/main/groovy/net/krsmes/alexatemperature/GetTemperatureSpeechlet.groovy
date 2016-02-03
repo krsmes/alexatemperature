@@ -17,6 +17,8 @@ class GetTemperatureSpeechlet implements Speechlet {
     private static final SPEECH_ON_LAUNCH = 'Ask me what the temperature is'
     private static final SPEECH_HELP_INTENT = 'You can ask what is the temperature, or how cold is it, or how hot is it'
 
+    GetTemperatureParticle particle = new GetTemperatureParticle()
+
     @Override
     void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException {
     }
@@ -52,7 +54,5 @@ class GetTemperatureSpeechlet implements Speechlet {
 
     def getTemperatureSpeech = {-> "The temperature is ${getTemperature()} degrees fahrenheit"}
 
-    def getTemperature = {->
-        new Random().nextInt(80) + 20
-    }
+    def getTemperature = {-> particle.getTemperature() }
 }
