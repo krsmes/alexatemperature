@@ -43,13 +43,13 @@ class GetTemperatureSpeechletSpec extends Specification {
 
     def "onIntent should return temperature response on get temperature intent"() {
         given:
-        def expectedResponseSpeech = 'The temperature is 55 degrees fahrenheit'
+        def expectedResponseSpeech = /The temperature is \d+ degrees fahrenheit/
         request = intentRequest('GetTemperatureIntent')
         when:
         def response = subject.onIntent(request, session)
         then:
         response instanceof SpeechletResponse
-        response.outputSpeech.text == expectedResponseSpeech
+        response.outputSpeech.text ==~ expectedResponseSpeech
     }
 
 }

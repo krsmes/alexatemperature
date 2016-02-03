@@ -16,7 +16,6 @@ import com.amazon.speech.ui.SimpleCard
 class GetTemperatureSpeechlet implements Speechlet {
     private static final SPEECH_ON_LAUNCH = 'Ask me what the temperature is'
     private static final SPEECH_HELP_INTENT = 'You can ask what is the temperature, or how cold is it, or how hot is it'
-    private static final SPEECH_GET_TEMPERATURE = 'The temperature is 55 degrees fahrenheit'
 
     @Override
     void onSessionStarted(SessionStartedRequest request, Session session) throws SpeechletException {
@@ -30,7 +29,7 @@ class GetTemperatureSpeechlet implements Speechlet {
     @Override
     SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException {
         switch (request?.intent?.name) {
-            case 'GetTemperatureIntent': tellResponse(SPEECH_GET_TEMPERATURE); break
+            case 'GetTemperatureIntent': tellResponse(getTemperatureSpeech()); break
             case 'AMAZON.HelpIntent': askResponse(SPEECH_HELP_INTENT); break
             default: null
         }
@@ -49,5 +48,11 @@ class GetTemperatureSpeechlet implements Speechlet {
     def tellResponse = { speechText, Card card = null ->
         def speech = new PlainTextOutputSpeech(text: speechText)
         card ? SpeechletResponse.newTellResponse(speech, card) : SpeechletResponse.newTellResponse(speech)
+    }
+
+    def getTemperatureSpeech = {-> "The temperature is ${getTemperature()} degrees fahrenheit"}
+
+    def getTemperature = {->
+        new Random().nextInt(80) + 20
     }
 }
