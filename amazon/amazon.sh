@@ -38,6 +38,8 @@ get() {
     # https://developer.amazon.com/edw/home.html#/skills/list
 
     aws lambda get-function --function-name $LAMBDA_FUNCTION_NAME
+    aws lambda get-function --function-name $LAMBDA_FUNCTION_NAME | grep -q `shasum -a 256 build/distributions/amazon-1.0-SNAPSHOT.zip | xxd -r -p | base64`
+    if [[ "$?" == "0" ]]; then echo "Current build deployed"; else echo "Current build not deployed"; fi
 }
 
 $1

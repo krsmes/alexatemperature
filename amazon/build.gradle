@@ -10,12 +10,17 @@ repositories {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.5'
-    compile 'com.amazonaws:aws-lambda-java-core:1.0.0'
+
     compile 'com.amazon.alexa:alexa-skills-kit:1.1.1'
+    compile 'com.amazonaws:aws-lambda-java-core:1.0.0'
+    compile 'com.amazonaws:aws-java-sdk-dynamodb:1.9.40'  // needed for com/fasterxml/jackson/databind
+
     compile 'org.slf4j:slf4j-api:1.7.10'
+    compile 'log4j:log4j:1.2.17'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'org.apache.directory.studio:org.apache.commons.io:2.4'  // tried just commons-io but did not work
 
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
-
 }
 
 task buildZip(type: Zip) {

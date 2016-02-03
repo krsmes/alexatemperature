@@ -1,0 +1,3 @@
+GetTemperatureIntent what is the temperature
+GetTemperatureIntent how hot is it
+GetTemperatureIntent how cold is it
